@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TasksMaster -A Smart Todo List</title>
+    <meta name="description" content="A beautiful, responsive todo list app to organize your tasks efficiently">
+    
+    <!-- CSS Files -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/header.css">
+    <link rel="stylesheet" href="css/sidebar.css">
+    <link rel="stylesheet" href="css/tasks.css">
+    <link rel="stylesheet" href="css/modal.css">
+    <link rel="stylesheet" href="css/notifications.css">
+    
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="assets/icons/TasksMaster.png">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <h1 class="logo">
+                    <i class="fas fa-tasks"></i>
+                    <span>TasksMaster</span>
+                </h1>
+                <button class="toggle-sidebar" id="toggleSidebar" aria-label="Toggle sidebar">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+            
+            <div class="sidebar-content">
+                <!-- Quick Stats -->
+                <div class="quick-stats">
+                    <div class="stat-item">
+                        <span class="stat-number" id="totalTasks">0</span>
+                        <span class="stat-label">Total</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number" id="completedTasks">0</span>
+                        <span class="stat-label">Done</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number" id="pendingTasks">0</span>
+                        <span class="stat-label">Pending</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number" id="overdueTasks">0</span>
+                        <span class="stat-label">Overdue</span>
+                    </div>
+                </div>
+
+                <!-- Navigation -->
+                <nav class="lists-nav" aria-label="Main navigation">
+                    <ul class="nav-list" id="navList">
+                        <li class="nav-item active" data-list="all" role="button" tabindex="0">
+                            <i class="fas fa-inbox"></i>
+                            <span>All Tasks</span>
+                            <span class="task-count" id="allCount">0</span>
+                        </li>
+                        <li class="nav-item" data-list="today" role="button" tabindex="0">
+                            <i class="fas fa-calendar-day"></i>
+                            <span>Today</span>
+                            <span class="task-count" id="todayCount">0</span>
+                        </li>
+                        <li class="nav-item" data-list="important" role="button" tabindex="0">
+                            <i class="fas fa-star"></i>
+                            <span>Important</span>
+                            <span class="task-count" id="importantCount">0</span>
+                        </li>
+                        <li class="nav-item" data-list="completed" role="button" tabindex="0">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Completed</span>
+                            <span class="task-count" id="completedCount">0</span>
+                        </li>
+                    </ul>
+                </nav>
+
+                <!-- Custom Lists -->
+                <div class="custom-lists">
+                    <div class="lists-header">
+                        <h3>My Lists</h3>
+                        <button class="add-list-btn" id="addListBtn" aria-label="Add new list">
+                            <i class="fas fa-plus"></i>
+                        </button>
+                    </div>
+                    <ul class="custom-lists-list" id="customLists" aria-label="Custom lists">
+                        <!-- Dynamic lists will be added here -->
+                    </ul>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content" id="mainContent">
+            <header class="main-header">
+                <div class="header-left">
+                    <h1 class="page-title" id="pageTitle">All Tasks</h1>
+                    <p class="page-subtitle" id="pageSubtitle">You have <span id="currentTaskCount">0</span> tasks</p>
+                </div>
+                <div class="header-actions">
+                    <div class="search-box">
+                        <i class="fas fa-search"></i>
+                        <input type="text" id="searchInput" placeholder="Search tasks..." aria-label="Search tasks">
+                    </div>
+                    <button class="btn btn-primary" id="addTaskBtn">
+                        <i class="fas fa-plus"></i>
+                        Add Task
+                    </button>
+                    <div class="view-options">
+                        <button class="view-btn active" data-view="list" aria-label="List view">
+                            <i class="fas fa-list"></i>
+                        </button>
+                        <button class="view-btn" data-view="grid" aria-label="Grid view">
+                            <i class="fas fa-th"></i>
+                        </button>
+                    </div>
+                    <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                </div>
+            </header>
+
+            <!-- Task Filters -->
+            <div class="task-filters">
+                <div class="filter-group">
+                    <button class="filter-btn active" data-filter="all">All</button>
+                    <button class="filter-btn" data-filter="active">Active</button>
+                    <button class="filter-btn" data-filter="completed">Completed</button>
+                </div>
+                <div class="sort-group">
+                    <label for="sortSelect" class="sort-label">Sort by:</label>
+                    <select class="sort-select" id="sortSelect" aria-label="Sort tasks">
+                        <option value="newest">Newest First</option>
+                        <option value="oldest">Oldest First</option>
+                        <option value="priority">Priority</option>
+                        <option value="dueDate">Due Date</option>
+                        <option value="title">Title A-Z</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Tasks Container -->
+            <div class="tasks-container" id="tasksContainer">
+                <div class="tasks-list" id="tasksList" role="list" aria-label="Tasks list">
+                    <!-- Tasks will be dynamically inserted here -->
+                </div>
+                
+                <!-- Empty State -->
+                <div class="empty-state" id="emptyState">
+                    <i class="fas fa-check-circle"></i>
+                    <h3>No tasks found</h3>
+                    <p>Add a new task to get started!</p>
+                    <button class="btn btn-primary" id="emptyAddTaskBtn">
+                        <i class="fas fa-plus"></i>
+                        Add Your First Task
+                    </button>
+                </div>
+
+                <!-- Loading State -->
+                <div class="loading-state" id="loadingState">
+                    <div class="loading-spinner"></div>
+                    <p>Loading tasks...</p>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Add/Edit Task Modal -->
+    <div class="modal" id="taskModal" role="dialog" aria-labelledby="modalTitle" aria-hidden="true">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modalTitle">Add New Task</h3>
+                <button class="close-modal" id="closeModal" aria-label="Close modal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <form class="task-form" id="taskForm">
+                <div class="form-group">
+                    <label for="taskTitle">Task Title *</label>
+                    <input type="text" id="taskTitle" name="title" required placeholder="What needs to be done?" aria-required="true">
+                </div>
+                
+                <div class="form-group">
+                    <label for="taskDescription">Description</label>
+                    <textarea id="taskDescription" name="description" placeholder="Add details (optional)" rows="3"></textarea>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="taskDueDate">Due Date</label>
+                        <input type="date" id="taskDueDate" name="dueDate">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="taskPriority">Priority</label>
+                        <select id="taskPriority" name="priority">
+                            <option value="low">Low</option>
+                            <option value="medium" selected>Medium</option>
+                            <option value="high">High</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="taskList">List</label>
+                    <select id="taskList" name="list">
+                        <option value="inbox">Inbox</option>
+                        <!-- Custom lists will be added dynamically -->
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="taskTags">Tags</label>
+                    <input type="text" id="taskTags" name="tags" placeholder="Add tags separated by commas">
+                </div>
+
+                <div class="modal-actions">
+                    <button type="button" class="btn btn-secondary" id="cancelTaskBtn">Cancel</button>
+                    <button type="submit" class="btn btn-primary" id="submitTaskBtn">
+                        <span id="submitButtonText">Add Task</span>
+                        <div class="loading-spinner small" id="submitSpinner" style="display: none;"></div>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Add List Modal -->
+    <div class="modal" id="listModal" role="dialog" aria-labelledby="listModalTitle" aria-hidden="true">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="listModalTitle">Create New List</h3>
+                <button class="close-modal" id="closeListModal" aria-label="Close modal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <form class="list-form" id="listForm">
+                <div class="form-group">
+                    <label for="listName">List Name *</label>
+                    <input type="text" id="listName" name="name" required placeholder="Enter list name" aria-required="true">
+                </div>
+                
+                <div class="form-group">
+                    <label>Color</label>
+                    <div class="color-picker">
+                        <div class="color-option selected" data-color="#3b82f6" style="background-color: #3b82f6;"></div>
+                        <div class="color-option" data-color="#ef4444" style="background-color: #ef4444;"></div>
+                        <div class="color-option" data-color="#10b981" style="background-color: #10b981;"></div>
+                        <div class="color-option" data-color="#f59e0b" style="background-color: #f59e0b;"></div>
+                        <div class="color-option" data-color="#8b5cf6" style="background-color: #8b5cf6;"></div>
+                        <div class="color-option" data-color="#06b6d4" style="background-color: #06b6d4;"></div>
+                    </div>
+                </div>
+
+                <div class="list-preview">
+                    <div class="list-preview-header">
+                        <div class="list-preview-icon" id="previewIcon" style="background-color: #3b82f6;">
+                            <i class="fas fa-list"></i>
+                        </div>
+                        <span class="list-preview-name" id="previewName">New List</span>
+                    </div>
+                    <div class="list-preview-stats">0 tasks</div>
+                </div>
+
+                <div class="modal-actions">
+                    <button type="button" class="btn btn-secondary" id="cancelListBtn">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Create List</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Notification Container -->
+    <div class="notification-container" id="notificationContainer" aria-live="polite" aria-atomic="true"></div>
+
+    <!-- JavaScript Files -->
+    <script src="js/utils.js"></script>
+    <script src="js/storage.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/tasks.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
