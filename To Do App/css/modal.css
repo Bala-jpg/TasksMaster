@@ -1,4 +1,4 @@
-/* css/modal.css */
+/* css/modal.css - FIXED TEXT ALIGNMENT */
 .modal {
     display: none;
     position: fixed;
@@ -26,7 +26,7 @@
     max-width: 500px;
     max-height: 90vh;
     overflow: hidden;
-    box-shadow: var(--shadow-lg);
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
     animation: slideUp 0.3s ease;
     display: flex;
     flex-direction: column;
@@ -46,6 +46,8 @@
     font-size: 1.25rem;
     font-weight: 600;
     color: var(--text-primary);
+    text-align: left;
+    flex: 1;
 }
 
 .close-modal {
@@ -60,6 +62,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    margin-left: auto;
 }
 
 .close-modal:hover {
@@ -93,6 +96,7 @@
     font-size: 0.875rem;
     font-weight: 500;
     color: var(--text-primary);
+    text-align: left;
 }
 
 .form-group input,
@@ -100,11 +104,13 @@
 .form-group select {
     padding: 0.75rem;
     border: 1px solid var(--border-color);
-    border-radius: 6px;
+    border-radius: 8px;
     font-size: 1rem;
     background: var(--bg-primary);
     color: var(--text-primary);
     transition: all 0.2s ease;
+    font-family: inherit;
+    text-align: left;
 }
 
 .form-group input:focus,
@@ -117,7 +123,8 @@
 
 .form-group input::placeholder,
 .form-group textarea::placeholder {
-    color: var(--text-secondary);
+    color: var(--text-muted);
+    text-align: left;
 }
 
 .form-group textarea {
@@ -125,10 +132,12 @@
     min-height: 80px;
     font-family: inherit;
     line-height: 1.5;
+    text-align: left;
 }
 
 .form-group select {
     cursor: pointer;
+    text-align: left;
 }
 
 /* Color Picker */
@@ -136,6 +145,7 @@
     display: flex;
     gap: 0.5rem;
     flex-wrap: wrap;
+    justify-content: flex-start;
 }
 
 .color-option {
@@ -161,7 +171,7 @@
     display: flex;
     gap: 1rem;
     justify-content: flex-end;
-    padding-top: 1rem;
+    padding: 1.5rem;
     border-top: 1px solid var(--border-color);
     margin-top: auto;
 }
@@ -181,6 +191,7 @@
     border-radius: 8px;
     margin-bottom: 1rem;
     border-left: 4px solid var(--primary-color);
+    text-align: left;
 }
 
 .list-preview-header {
@@ -188,6 +199,7 @@
     align-items: center;
     gap: 0.75rem;
     margin-bottom: 0.5rem;
+    text-align: left;
 }
 
 .list-preview-icon {
@@ -197,16 +209,20 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    color: white;
+    font-size: 0.75rem;
 }
 
 .list-preview-name {
     font-weight: 600;
     color: var(--text-primary);
+    text-align: left;
 }
 
 .list-preview-stats {
     font-size: 0.875rem;
     color: var(--text-secondary);
+    text-align: left;
 }
 
 /* Subtask Form */
@@ -222,6 +238,7 @@
     border: 1px solid var(--border-color);
     border-radius: 6px;
     font-size: 0.875rem;
+    text-align: left;
 }
 
 .add-subtask-btn {
@@ -249,6 +266,7 @@
     padding: 0.5rem;
     border-radius: 6px;
     background: var(--bg-secondary);
+    text-align: left;
 }
 
 .subtask-list-item input[type="checkbox"] {
@@ -258,6 +276,7 @@
 .subtask-list-item span {
     flex: 1;
     font-size: 0.875rem;
+    text-align: left;
 }
 
 .remove-subtask {
@@ -272,6 +291,78 @@
 .remove-subtask:hover {
     background: var(--error-color);
     color: white;
+}
+
+/* CONFIDENTIAL DIALOG - FIXED TEXT ALIGNMENT */
+.confirmation-dialog .modal-content {
+    max-width: 400px;
+    animation: slideDown 0.3s ease;
+}
+
+.confirmation-dialog .modal-header {
+    border-bottom: 1px solid var(--border-color);
+    padding: 1.5rem 1.5rem 1rem;
+    text-align: center;
+}
+
+.confirmation-dialog .modal-header h3 {
+    width: 100%;
+    text-align: center;
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin: 0;
+}
+
+.confirmation-dialog .modal-body {
+    padding: 1.5rem;
+    text-align: center;
+}
+
+.confirmation-dialog .modal-body p {
+    margin: 0;
+    color: var(--text-primary);
+    line-height: 1.6;
+    font-size: 1rem;
+    text-align: center;
+    word-wrap: break-word;
+    hyphens: auto;
+}
+
+.confirmation-dialog .modal-actions {
+    display: flex;
+    gap: 0.75rem;
+    justify-content: center;
+    padding: 1rem 1.5rem 1.5rem;
+    margin: 0;
+    border-top: 1px solid var(--border-color);
+}
+
+.confirmation-dialog .modal-actions .btn {
+    min-width: 100px;
+    flex: 1;
+    padding: 0.75rem 1.5rem;
+    font-weight: 500;
+}
+
+.confirmation-dialog .modal-actions .btn-secondary {
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+    border: 1px solid var(--border-color);
+}
+
+.confirmation-dialog .modal-actions .btn-secondary:hover {
+    background: var(--border-color);
+}
+
+.confirmation-dialog .modal-actions .btn-danger {
+    background: var(--error-color);
+    color: white;
+    border: none;
+}
+
+.confirmation-dialog .modal-actions .btn-danger:hover {
+    background: #dc2626;
 }
 
 /* Animations */
@@ -292,6 +383,17 @@
     to {
         opacity: 1;
         transform: translateY(0);
+    }
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px) scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
     }
 }
 
@@ -320,10 +422,26 @@
 
     .modal-actions {
         flex-direction: column-reverse;
+        gap: 0.75rem;
     }
 
     .modal-actions .btn {
         width: 100%;
+    }
+
+    /* Responsive confirmation dialog */
+    .confirmation-dialog .modal-content {
+        max-width: 480px;
+        margin: 1rem;
+        max-width: none;
+    }
+    
+    .confirmation-dialog .modal-actions {
+        flex-direction: row;
+    }
+    
+    .confirmation-dialog .modal-actions .btn {
+        min-width: auto;
     }
 }
 
@@ -336,4 +454,112 @@
         padding: 1rem;
         gap: 1rem;
     }
+
+    .modal-header {
+        padding: 1rem 1rem 0.75rem;
+    }
+
+    .modal-actions {
+        padding: 1rem;
+    }
+
+    /* Mobile confirmation dialog */
+    .confirmation-dialog .modal-actions {
+        flex-direction: column;
+    }
+    
+    .confirmation-dialog .modal-actions .btn {
+        width: 100%;
+    }
+    
+    .confirmation-dialog .modal-body p {
+        text-align: center;
+        font-size: 0.95rem;
+    }
+    
+    .confirmation-dialog .modal-header h3 {
+        font-size: 1.1rem;
+    }
+}
+
+/* Dark theme adjustments */
+[data-theme="dark"] .modal-content {
+    background: var(--bg-primary);
+    border: 1px solid var(--border-color);
+}
+
+[data-theme="dark"] .confirmation-dialog .modal-actions .btn-secondary {
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+    border-color: var(--border-color);
+}
+
+[data-theme="dark"] .confirmation-dialog .modal-actions .btn-secondary:hover {
+    background: var(--border-color);
+}
+
+/* Focus styles for accessibility */
+.modal:focus {
+    outline: none;
+}
+
+.close-modal:focus {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 2px;
+}
+
+/* Scrollbar styling for modal content */
+.modal-content::-webkit-scrollbar {
+    width: 6px;
+}
+
+.modal-content::-webkit-scrollbar-track {
+    background: var(--bg-secondary);
+}
+
+.modal-content::-webkit-scrollbar-thumb {
+    background: var(--border-color);
+    border-radius: 3px;
+}
+
+.modal-content::-webkit-scrollbar-thumb:hover {
+    background: var(--text-muted);
+}
+
+/* Loading state in modals */
+.modal-loading {
+    position: relative;
+}
+
+.modal-loading::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255, 255, 255, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+}
+
+.modal-loading::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 32px;
+    height: 32px;
+    border: 3px solid transparent;
+    border-top: 3px solid var(--primary-color);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    z-index: 1;
+}
+
+[data-theme="dark"] .modal-loading::after {
+    background: rgba(30, 41, 59, 0.8);
 }
